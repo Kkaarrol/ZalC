@@ -45,7 +45,8 @@ void sPrint(Student* s) {
 	int i;
 	printf("%d - %s %s\n\nGrades:\n", *s->id, s->firstName, s->lastName);
 	for (i = 0; i < 5; i++) {
-		printf("%.1f\n", s->grades[i]);
+		printf("%.1f", s->grades[i]);
+		if (i < 4) printf(", ");
 	}
 	printf("\nAverage: %.2f\n\n", *s->avg);
 }
@@ -68,39 +69,50 @@ void sSort(int count, Student** students, sortDirection dir) {
 	int i, j, k = 0;
 	for (i = 0; i < (count - 1); i++) {
 		for (j = 0; j < (count - (i + 1)); j++) {
-			if (students[i]->avg > students[i + 1]->avg) {
+			if (*(students[j]->avg) > *(students[j + 1]->avg)) {
 				// swap a[j] and a[j+1]
-				// no fucking idea if this works
+				
+				// I'm an idiot, used i instead of j
 
-				// save students[i] to a temporary set of variables
-				t_id = *(students[i]->id);
-				strcpy(t_lastName, students[i]->lastName);
-				strcpy(t_firstName, students[i]->firstName);
+				// save students[j] to a temporary set of variables
+				t_id = *(students[j]->id);
+				strcpy(t_lastName, students[j]->lastName);
+				strcpy(t_firstName, students[j]->firstName);
 				for (k = 0; k < 5; k++) {
-					t_grades[k] = students[i]->grades[k];
+					t_grades[k] = students[j]->grades[k];
 				}
-				t_avg = *(students[i]->avg);
+				t_avg = *(students[j]->avg);
 
-				// students[i] = students[i + 1]
-				*(students[i]->id) = *(students[i + 1]->id);
-				strcpy(students[i]->lastName, students[i + 1]->lastName);
-				strcpy(students[i]->firstName, students[i + 1]->firstName);
+				// students[j] = students[j + 1]
+				*(students[j]->id) = *(students[j + 1]->id);
+				strcpy(students[j]->lastName, students[j + 1]->lastName);
+				strcpy(students[j]->firstName, students[j + 1]->firstName);
 				for (k = 0; k < 5; k++) {
-					*(students[i]->grades[k]) = *(students[i + 1]->grades[k]);
+					students[j]->grades[k] = students[j + 1]->grades[k];
 				}
-				*(students[i]->avg) = *(students[i + 1]->avg);
+				*(students[j]->avg) = *(students[j + 1]->avg);
 
-				// student[i + 1] = temp
-				*(students[i + 1]->id) = t_id;
-				strcpy(students[i + 1]->lastName, t_lastName);
-				strcpy(students[i + 1]->firstName, t_firstName);
+				// student[j + 1] = temp
+				*(students[j + 1]->id) = t_id;
+				strcpy(students[j + 1]->lastName, t_lastName);
+				strcpy(students[j + 1]->firstName, t_firstName);
 				for (k = 0; k < 5; k++) {
-					students[i + 1]->grades[k] = t_grades[k];
+					students[j + 1]->grades[k] = t_grades[k];
 				}
-				*(students[i + 1]->avg) = t_avg;
+				*(students[j + 1]->avg) = t_avg;
 			}
 		}
 	}
+}
+void sSet(Student* s, int id, char* lastName, char* firstName, float* grades, float avg) {
+	int i = 0;
+	*(s->id) = id;
+	strcpy(s->firstName, firstName);
+	strcpy(s->lastName, lastName);
+	for (i = 0; i < 5; i++) {
+		s->grades[i] = grades[i];
+	}
+	*(s->avg) = avg;
 }
 Student sUpdateAverage(Student s) {
 	int i = 0;

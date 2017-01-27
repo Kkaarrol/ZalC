@@ -107,9 +107,9 @@ void menu(int* count, Student** studenci) {
 				break;
 			}
 			case 'N': case 'n': {
-				system("cls");
-				printf("Podaj liczbe studentow: ");
-				scanf("%d", &option_num);
+				//system("cls");
+				//printf("Podaj liczbe studentow: ");
+				//scanf("%d", &option_num);
 				system("cls");
 
 				int c = *count;
@@ -121,17 +121,19 @@ void menu(int* count, Student** studenci) {
 
 				Student** s_high = calloc(c, 1);			// for whatever reason, this works
 				sCreate(c, s_high);							// allocate memory
-				for (i = 0; i < option_num; i++) {
+				for (i = 0; i < c; i++) {
 					// copy the data
-					s_high[i]->id = studenci[i]->id;
-					strcpy(s_high[i]->firstName, studenci[i]->firstName);
-					strcpy(s_high[i]->lastName, studenci[i]->lastName);
-					*(s_high[i]->avg) = *(studenci[i]->avg);
-					// copy the grades
-					int l = 0;
-					for (l = 0; l < 5; l++) {
-						s_high[i]->grades[l] = studenci[i]->grades[l];
-					}
+					sSet(s_high[i],
+						*(studenci[i]->id),
+						studenci[i]->lastName,
+						studenci[i]->firstName,
+						studenci[i]->grades,
+						*(studenci[i]->avg)
+					);
+				}
+				sSort(c, s_high, SORT_ASC);
+				//printf("After: \n");
+				for (i = 0; i < c; i++) {
 					sPrint(s_high[i]);
 				}
 				system("pause");
