@@ -131,7 +131,7 @@ void menu(int* count, Student** studenci) {
 						*(studenci[i]->avg)
 					);
 				}
-				sSort(c, s_high, SORT_ASC);
+				sSort(c, s_high, SORT_DESC);
 				//printf("After: \n");
 				for (i = 0; i < c; i++) {
 					sPrint(s_high[i]);

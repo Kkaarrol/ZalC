@@ -69,7 +69,9 @@ void sSort(int count, Student** students, sortDirection dir) {
 	int i, j, k = 0;
 	for (i = 0; i < (count - 1); i++) {
 		for (j = 0; j < (count - (i + 1)); j++) {
-			if (*(students[j]->avg) > *(students[j + 1]->avg)) {
+			if ((dir == SORT_ASC && *(students[j]->avg) > *(students[j + 1]->avg)) || 
+				(dir == SORT_DESC && !(*(students[j]->avg) > *(students[j + 1]->avg)))
+				) {
 				// swap a[j] and a[j+1]
 				
 				// I'm an idiot, used i instead of j
