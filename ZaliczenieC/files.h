@@ -7,7 +7,6 @@
 #include "types.h"
 
 FILE *pFile;
-
 bool checkHeader(FILE* pFile) {
 	char header[5] = { 0 };
 	fread(header, sizeof *header, 4, pFile);
@@ -48,7 +47,7 @@ int loadFromFile(char* fileName, Student **s) {
 				fread(s[i]->lastName, sizeof(char), 30, pFile);
 				fread(s[i]->firstName, sizeof(char), 20, pFile);
 				fread(s[i]->id, sizeof(int), 1, pFile);
-				fread(s[i]->marks, sizeof(float), 5, pFile);
+				fread(s[i]->grades, sizeof(float), 5, pFile);
 				fread(s[i]->avg, sizeof(float), 1, pFile);
 			}
 		}
